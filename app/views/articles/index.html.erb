@@ -11,7 +11,7 @@
             <tr>
                 <td><%= article.title%></td>
                 <td><%= article.description%></td>
-                <td>Actions to take</td>
+                <td><%= link_to 'Delete',article_path(article), data: {turbo_method: :delete} %></td>
             </tr>
         <%end%>
 

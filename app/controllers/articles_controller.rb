@@ -25,4 +25,25 @@ class ArticlesController < ApplicationController
         # article.description = entered_article["description"]
         # article.save
     end
+
+    def edit
+        @article = Article.find(params[:id])
+    end
+
+    def update
+        @article = Article.find(params[:id])
+        if @article.update(params.require(:article).permit(:title,:description))
+            flash[:notice] = "successfully edited the article"
+            redirect_to article_path(@article)
+        else
+            render 'edit'
+        end
+    end
+
+    def destroy
+        @article = Article.find(params[:id])
+        @article.destroy
+        puts "destroyed"
+        redirect_to articles_path()
+    end
 end
