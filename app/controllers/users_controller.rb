@@ -16,7 +16,13 @@ class UsersController < ApplicationController
     end
 
     def edit
-        @user = User.find(params[:id])
+        
+        if logged_in? && current_user.id.to_s == params[:id]
+            @user = User.find(params[:id])
+        else 
+            flash[:notice] = "You can only edit your account"
+            redirect_to root_path
+        end
     end
     
     def update
