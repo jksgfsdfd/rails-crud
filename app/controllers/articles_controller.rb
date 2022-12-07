@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
     def create
         puts params
         @article = Article.new(article_params)
-        @article.user = User.first
+        @article.user = current_user
         if @article.save
             flash[:notice] = "Article saved successfully"
             redirect_to article_path(@article)
@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
 
     def update
         #@article = Article.find(params[:id])
-        @article.user = User.first
+        @article.user = current_user
         if @article.update(article_params)
             flash[:notice] = "successfully edited the article"
             redirect_to article_path(@article)
