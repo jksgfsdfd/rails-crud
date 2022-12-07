@@ -1,6 +1,9 @@
 class ArticlesController < ApplicationController
 
     before_action :set_article, only: [:show,:edit,:update,:destroy]
+
+    #to enable operations with articles before adding authentication functionality
+    before_action :set_user, only: [:create,:update,:destroy]    
     
     def show
         #@article = Article.find(params[:id])
@@ -54,6 +57,10 @@ class ArticlesController < ApplicationController
 
     def set_article
         @article = Article.find(params[:id])
+    end
+
+    def set_user
+        @article.user = User.first
     end
 
     def article_params
