@@ -22,3 +22,10 @@
 
 <%= link_to 'Home Page' , root_path , data: {turbo_method: :get} %>
 <%= link_to 'Create new article' , new_article_path() , data: {turbo_method: :get} %>
+<%if logged_in?%>
+    <% user = current_user%>
+    <%= link_to 'Logout' , logout_path , data: {turbo_method: :delete} %>
+    <p>
+        <span>Logged in as <%=user.username %></span>
+    </p>
+<% end %>

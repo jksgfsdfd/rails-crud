@@ -1,0 +1,10 @@
+<%= form_with(scope: :session,url:login_path,data:{turbo: false},local: true)  do |f|%>
+
+    <%=f.label :email%><br>
+    <%=f.email_field :email%><br>
+
+    <%=f.label :password%><br>
+    <%=f.password_field :password%><br>
+
+    <%=f.submit "Log In"%>
+<% end %> 

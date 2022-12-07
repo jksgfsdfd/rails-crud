@@ -8,7 +8,8 @@ class UsersController < ApplicationController
         @user = User.new(params.require(:user).permit(:username,:email,:password))
         if @user.save
             flash[:notice] = "Welcome #{@user.username}"
-            redirect_to articles_path
+            session[:user_id] = user.id
+            redirect_to user_path(@user)
         else
             render 'new'
         end
@@ -26,5 +27,13 @@ class UsersController < ApplicationController
         else
             render 'edit'
         end
+    end
+
+    def show 
+        @user = User.find(params[:id])
+    end 
+
+    def index
+        @users = User.all
     end
 end
