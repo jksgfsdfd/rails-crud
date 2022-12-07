@@ -10,7 +10,7 @@
 <% end %>
 
 
-<%= form_with scope: :article,url: articles_path,data: {turbo: false}, local: true do |f|%>
+<%= form_with model: @article,data: {turbo: false}, local: true do |f|%>
     <%=f.label :title%><br>
     <%=f.text_field :title%><br>
 

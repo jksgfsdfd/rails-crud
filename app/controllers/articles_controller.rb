@@ -36,7 +36,6 @@ class ArticlesController < ApplicationController
 
     def update
         #@article = Article.find(params[:id])
-        @article = Article.new(article_params)
         @article.user = User.first
         if @article.update(article_params)
             flash[:notice] = "successfully edited the article"
