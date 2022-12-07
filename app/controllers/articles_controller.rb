@@ -1,9 +1,6 @@
 class ArticlesController < ApplicationController
 
     before_action :set_article, only: [:show,:edit,:update,:destroy]
-
-    #to enable operations with articles before adding authentication functionality
-    before_action :set_user, only: [:create,:update,:destroy]    
     
     def show
         #@article = Article.find(params[:id])
@@ -18,7 +15,9 @@ class ArticlesController < ApplicationController
     end
 
     def create
-        @article = Article.new(params.require(:article).permit(:title,:description))
+        puts params
+        @article = Article.new(article_params)
+        @article.user = User.first
         if @article.save
             flash[:notice] = "Article saved successfully"
             redirect_to article_path(@article)
@@ -37,6 +36,8 @@ class ArticlesController < ApplicationController
 
     def update
         #@article = Article.find(params[:id])
+        @article = Article.new(article_params)
+        @article.user = User.first
         if @article.update(article_params)
             flash[:notice] = "successfully edited the article"
             redirect_to article_path(@article)
@@ -57,10 +58,6 @@ class ArticlesController < ApplicationController
 
     def set_article
         @article = Article.find(params[:id])
-    end
-
-    def set_user
-        @article.user = User.first
     end
 
     def article_params
