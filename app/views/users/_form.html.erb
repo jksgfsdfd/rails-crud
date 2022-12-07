@@ -1,0 +1,23 @@
+<% if @user.errors.any? %>
+    <h2>Couldnt save user</h2>
+    <ol>
+        <% @user.errors.full_messages.each do |err_msg| %>
+            <li>
+            <%= err_msg%>
+            </li>
+        <% end %>
+    </ol>
+<% end %>
+
+<%= form_with(model: @user,data:{turbo: false},local: true)  do |f|%>
+    <%=f.label :username%><br>
+    <%=f.text_field :username%><br>
+
+    <%=f.label :email%><br>
+    <%=f.email_field :email%><br>
+
+    <%=f.label :password%><br>
+    <%=f.password_field :password%><br>
+
+    <%=f.submit(@user.new_record? ? "Sign Up" : "Update User")%>
+<% end %> 
