@@ -4,6 +4,6 @@
 
 <%if logged_in? && @article.user == current_user%>
     <%= link_to 'Edit Article' , edit_article_path(@article) , data: {turbo_method: :get} %> 
-    <%= link_to 'Delete Article' , article_path(@article) , data: {turbo_method: :delete , turbo_confirm: "Are you sure"} %> |
+    <%= link_to 'Delete Article' , article_path(@article) , data: {turbo_method: :delete,turbo_confirm:"Are you sure to delete?"}  %> |
 <% end %>    
 <%= link_to 'Return to All Articles' , articles_path , data: {turbo_method: :get}%>

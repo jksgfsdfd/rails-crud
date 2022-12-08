@@ -2,5 +2,7 @@
 <p>Email : <%= @user.email %></p>
 
 <%= link_to 'View Articles',articles_path,data:{turbo_method: :get}%>
-<%= link_to 'Edit',edit_user_path,data:{turbo_method: :get}%>
-<%= link_to 'Delete',user_path,data:{turbo_method: :delete,turbo_confirm:"It will delete your account and all of your articles"}%>
+<% if logged_in? && current_user==@user%>
+    <td><%= link_to "Edit" , edit_user_path(@user) , data:{turbo_method: :get}%></td>
+    <td><%= link_to "Delete" , user_path(@user) , data:{turbo_method: :delete,turbo_confirm:"This will delete the account and all its articles"}%></td>
+<% end %>

@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
     def logged_in?
         !!current_user
     end
+
+    def is_admin?
+        logged_in? && current_user.admin
+    end
 end

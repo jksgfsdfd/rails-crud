@@ -15,7 +15,6 @@ class ArticlesController < ApplicationController
     end
 
     def create
-        puts params
         @article = Article.new(article_params)
         @article.user = current_user
         if @article.save
@@ -32,11 +31,19 @@ class ArticlesController < ApplicationController
 
     def edit
         #@article = Article.find(params[:id])
+        if !logged_in? || !(@article.user == current_user)
+            flash[:alert] = "You can only edit your articles"
+            redirect_to root_path
+        end
     end
 
     def update
         #@article = Article.find(params[:id])
-        @article.user = current_user
+        if !logged_in? || !(@article.user == current_user)
+            flash[:alert] = "You can only edit your articles"
+            redirect_to root_path
+        end
+
         if @article.update(article_params)
             flash[:notice] = "successfully edited the article"
             redirect_to article_path(@article)
@@ -47,10 +54,19 @@ class ArticlesController < ApplicationController
 
     def destroy
         #@article = Article.find(params[:id])
+        if !logged_in? || !(@article.user == current_user)
+            flash[:alert] = "You can only delete your articles"
+            redirect_to root_path
+        end
+
         if @article.destroy
             flash[:notice] = "successfully deleted the article"
+            redirect_to articles_path()
+        else
+            flash.now[:alert] = "Couldn't delete the article"
+            render "show",status: 422
         end
-        redirect_to articles_path()
+        
     end
 
     private
