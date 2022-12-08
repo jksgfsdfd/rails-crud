@@ -8,7 +8,7 @@ class UsersController < ApplicationController
         @user = User.new(params.require(:user).permit(:username,:email,:password))
         if @user.save
             flash[:notice] = "Welcome #{@user.username}"
-            session[:user_id] = user.id
+            session[:user_id] = @user.id
             redirect_to user_path(@user)
         else
             render 'new'
@@ -41,5 +41,17 @@ class UsersController < ApplicationController
 
     def index
         @users = User.all
+    end
+
+    def destroy
+        #delete all his articles,delete the user and logout him
+        user = current_user
+        puts "###################################################################################"
+        puts user
+        puts "###################################################################################"
+        user.destroy
+        session[:user_id] = nil
+        flash[:notice] = "Account deleted"
+        redirect_to login_path
     end
 end
